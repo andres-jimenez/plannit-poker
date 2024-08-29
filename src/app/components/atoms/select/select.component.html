@@ -1,0 +1,12 @@
+<div class="container">
+  <input
+    [id]="value"
+    name="type"
+    [value]="value"
+    (change)="onSelectChanges($event)"
+    type="radio"
+  />
+  <label [for]="value" class="custom-radio"
+    >{{ label }} <span class="checkmark"></span
+  ></label>
+</div>

@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="wrapper">
+    <app-input
+      name="userName"
+      label="Tu nombre"
+      [(value)]="userName"
+      [isInvalid]="isInvalidUserName"
+      [errorMessage]="errorMessage"
+      [onChange]="onUserNameChanges"
+      style="width: 100%"
+    />
+    <div class="selects">
+      <app-select
+        label="Jugador"
+        value="player"
+        (onChanges)="onUserTypeChanges($event)"
+      />
+      <app-select
+        label="Espectador"
+        value="spectator"
+        (onChanges)="onUserTypeChanges($event)"
+      />
+    </div>
+    <div class="button">
+      <app-button (click)="onSubmit()" text="Continuar" />
+    </div>
+  </div>
+</div>

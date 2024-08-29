@@ -1,0 +1,20 @@
+<div>
+  <app-input
+    name="gameName"
+    label="Nombra la partida"
+    [(value)]="gameName"
+    [isInvalid]="isInvalidGameName"
+    [errorMessage]="errorMessage"
+    [onChange]="onGameNameChanges"
+    style="width: 100%"
+  />
+  <app-button
+    text="Crear partida"
+    (onClick)="onSubmit()"
+    [disabled]="isInvalidGameName"
+  />
+</div>
+
+<ng-container *ngIf="showCreateUserForm">
+  <app-create-user-form [gameName]="gameName" />
+</ng-container>
