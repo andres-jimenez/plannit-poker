@@ -1,0 +1,16 @@
+button {
+  background-color: #fff;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #1f0045;
+  outline: none;
+  border: none;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
