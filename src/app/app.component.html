@@ -1,3 +1,3 @@
-<div class="container">
+<div [ngClass]="{ container: true, 'container--inPokerTable': isInPokerTable }">
   <router-outlet></router-outlet>
 </div>

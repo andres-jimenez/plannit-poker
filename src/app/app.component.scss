@@ -2,4 +2,8 @@
   width: 100vw;
   height: 100vh;
   background: radial-gradient(#6300db, #1f0045);
+
+  &--inPokerTable {
+    background: radial-gradient(#320070, #1f0045);
+  }
 }

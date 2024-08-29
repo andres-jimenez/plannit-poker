@@ -1,4 +1,6 @@
-<ng-container>
-  <p>Elige una carta 👇</p>
-  <button *ngFor="let score of scores">{{ score }}</button>
-</ng-container>
+<div class="container">
+  <span class="title">Elige una carta 👇</span>
+  <div>
+    <app-card *ngFor="let score of scores" [score]="score" />
+  </div>
+</div>

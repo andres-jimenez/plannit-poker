@@ -1,0 +1,17 @@
+header {
+  width: 100%;
+  position: fixed;
+
+  .wrapper {
+    padding-top: 40px;
+    width: 90%;
+    margin: auto;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .title {
+    color: #fff;
+  }
+}

@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { CardsComponent } from '../../molecules/cards/cards.component';
+import { TableComponent } from '../../molecules/table/table.component';
+import { PokerTemplateComponent } from '../../templates/poker-template/poker-template.component';
 
 @Component({
   standalone: true,
-  imports: [CardsComponent],
+  imports: [CardsComponent, TableComponent, PokerTemplateComponent],
   templateUrl: './poker-page.component.html',
-  styles: ``,
+  styleUrl: `./poker-page.component.scss`,
 })
 export class PokerPageComponent {}
