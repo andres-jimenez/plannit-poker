@@ -18,7 +18,10 @@ describe('AppComponent', () => {
   it('should render app container', () => {
     const fixture = TestBed.createComponent(AppComponent);
 
-    const containerElement = fixture.debugElement.query(By.css('.container'));
+    fixture.detectChanges();
+
+    const containerElement =
+      fixture.debugElement.nativeElement.querySelector('.container');
 
     expect(containerElement).toBeTruthy();
   });

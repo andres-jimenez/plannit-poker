@@ -1,0 +1,19 @@
+<div class="playersGrid">
+  <div class="playersGrid__item playersGrid__item--localUser">
+    <app-player-card [playerName]="userName" [playerType]="userType" />
+  </div>
+  <div
+    *ngFor="let player of players; let i = index"
+    class="playersGrid__item"
+    [style]="getPlayerPositionInTable(i)"
+  >
+    <app-player-card [playerName]="player.name" [playerType]="player.type" />
+  </div>
+  <div class="table">
+    <div class="table__outside">
+      <div class="table__middle">
+        <div class="table__inside"></div>
+      </div>
+    </div>
+  </div>
+</div>
