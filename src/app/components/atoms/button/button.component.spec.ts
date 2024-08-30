@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ButtonComponent } from './button.component';
+import { By } from '@angular/platform-browser';
 
 describe('ButtonComponent', () => {
   let component: ButtonComponent;
@@ -40,5 +41,15 @@ describe('ButtonComponent', () => {
       fixture.debugElement.nativeElement.querySelector('button');
 
     expect(buttonElement).toHaveClass('purple');
+  });
+
+  it('should emit the click event', () => {
+    spyOn(component.onClick, 'emit');
+
+    const buttonElement = fixture.debugElement.query(By.css('button'));
+
+    buttonElement.triggerEventHandler('click', null);
+
+    expect(component.onClick.emit).toHaveBeenCalled();
   });
 });

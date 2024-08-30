@@ -38,4 +38,15 @@ describe('CardsComponent', () => {
       expect(cardElement.componentInstance.score).toBe(component.scores[index]);
     });
   });
+
+  it('should call handleSelect', () => {
+    spyOn(component.registerLocalPlayerVote, 'emit');
+
+    const testScore = '5';
+    component.handleSelectCard(testScore);
+
+    expect(component.registerLocalPlayerVote.emit).toHaveBeenCalledWith(
+      testScore
+    );
+  });
 });

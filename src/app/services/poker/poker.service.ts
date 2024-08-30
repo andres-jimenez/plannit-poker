@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Player, voteDetail } from '../../types/player-types.types';
 import { cardScores } from '../../constants/poker';
 
-const usersInitialState: Player[] = [
+export const usersInitialState: Player[] = [
   { name: 'Pedro', type: 'player', hasVoted: false, vote: null },
   { name: 'Juan', type: 'player', hasVoted: false, vote: null },
   { name: 'Ana', type: 'spectator', hasVoted: false, vote: null },
@@ -43,19 +43,19 @@ export class PokerService {
   getDetailVotes() {
     let votes: voteDetail[] = [];
 
-    this.users.forEach((user) => {
-      if (user.vote) {
-        if (votes.find((vote) => vote.vote === user.vote)) {
-          votes = votes.map((vote) => {
-            if (vote.vote === user.vote) {
-              return { ...vote, count: vote.count + 1 };
-            } else {
-              return vote;
-            }
-          });
-        } else {
-          votes = [...votes, { vote: user.vote, count: 1 }];
-        }
+    const usersThatVoted = this.users.filter((user) => user.vote);
+
+    usersThatVoted.forEach((user) => {
+      if (votes.find((vote) => vote.vote === user.vote)) {
+        votes = votes.map((vote) => {
+          if (vote.vote === user.vote) {
+            return { ...vote, count: vote.count + 1 };
+          } else {
+            return vote;
+          }
+        });
+      } else {
+        votes = [...votes, { vote: user.vote!, count: 1 }];
       }
     });
 

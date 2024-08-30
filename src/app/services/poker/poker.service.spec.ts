@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PokerService } from './poker.service';
+import { PokerService, usersInitialState } from './poker.service';
+import { voteDetail } from '../../types/player-types.types';
 
 describe('PokerService', () => {
   let service: PokerService;
@@ -44,5 +45,31 @@ describe('PokerService', () => {
     );
 
     expect(usersVoted.length).toBe(5);
+  });
+
+  it('should return detail votes', () => {
+    service.getVotes();
+    const detailVotes: voteDetail[] = service.getDetailVotes();
+
+    expect(detailVotes).toEqual(jasmine.any(Array));
+    detailVotes.forEach((detail) => {
+      expect(typeof detail.vote).toBe('string');
+      expect(typeof detail.count).toBe('number');
+    });
+  });
+
+  it('should return average vote', () => {
+    service.getVotes();
+    const averageVote = service.getAverageVote();
+
+    expect(averageVote).toMatch(/^\d+(\.\d)?$/);
+  });
+
+  it('should reset users to initial state', () => {
+    service.getVotes();
+    service.resetPoker();
+    const users = service.getUsers();
+
+    expect(users).toEqual(usersInitialState);
   });
 });

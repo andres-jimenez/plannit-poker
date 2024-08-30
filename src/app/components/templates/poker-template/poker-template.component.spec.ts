@@ -40,4 +40,12 @@ describe('PokerTemplateComponent', () => {
     component.ngOnInit();
     expect(component.title).toBe('Test Game');
   });
+
+  it('should set showInviteModal to true when calling onShowInviteModal', () => {
+    component.onShowInviteModal(true);
+
+    fixture.detectChanges();
+
+    expect(component.showInviteModal).toBeTrue();
+  });
 });
