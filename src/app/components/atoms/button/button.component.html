@@ -1,1 +1,7 @@
-<button (click)="handleClick()" [disabled]="disabled">{{ text }}</button>
+<button
+  [ngClass]="{ white: variant === 'white', purple: variant === 'purple' }"
+  (click)="handleClick()"
+  [disabled]="disabled"
+>
+  {{ text }}
+</button>

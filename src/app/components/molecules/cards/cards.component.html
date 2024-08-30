@@ -1,6 +1,11 @@
 <div class="container">
   <span class="title">Elige una carta 👇</span>
-  <div>
-    <app-card *ngFor="let score of scores" [score]="score" />
+  <div class="cards">
+    <app-card
+      *ngFor="let score of scores"
+      [score]="score"
+      (onSelect)="handleSelectCard($event)"
+      [isSelected]="selectedScore === score"
+    />
   </div>
 </div>

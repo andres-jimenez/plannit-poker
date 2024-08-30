@@ -21,8 +21,12 @@ describe('PlayerCardComponent', () => {
   });
 
   it('renders the player card correctly', () => {
-    component.playerName = 'Andrés';
-    component.playerType = 'player';
+    component.player = {
+      name: 'Andrés',
+      type: 'player',
+      hasVoted: false,
+      vote: null,
+    };
 
     fixture.detectChanges();
 
@@ -36,8 +40,12 @@ describe('PlayerCardComponent', () => {
   });
 
   it('renders just 2 first letters of name in card if player is spectator', () => {
-    component.playerName = 'Andrés';
-    component.playerType = 'spectator';
+    component.player = {
+      name: 'Andrés',
+      type: 'spectator',
+      hasVoted: false,
+      vote: null,
+    };
 
     fixture.detectChanges();
 
@@ -45,5 +53,40 @@ describe('PlayerCardComponent', () => {
       fixture.debugElement.nativeElement.querySelector('.card--spectator');
 
     expect(cardElement.textContent.trim()).toBe('AN');
+  });
+
+  it('should render voted card if player has voted', () => {
+    component.player = {
+      name: 'Andrés',
+      type: 'player',
+      hasVoted: true,
+      vote: '5',
+    };
+
+    fixture.detectChanges();
+
+    const cardElement = fixture.debugElement.nativeElement.querySelector(
+      '.card--player--voted'
+    );
+
+    expect(cardElement).toBeTruthy();
+  });
+
+  it('should show score if showScore is true', () => {
+    component.player = {
+      name: 'Andrés',
+      type: 'player',
+      hasVoted: true,
+      vote: '5',
+    };
+    component.showScore = true;
+
+    fixture.detectChanges();
+
+    const cardElement = fixture.debugElement.nativeElement.querySelector(
+      '.card--player--revealed'
+    );
+
+    expect(cardElement.textContent.trim()).toBe('5');
   });
 });

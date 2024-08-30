@@ -13,4 +13,14 @@ button {
   &:disabled {
     opacity: 0.5;
   }
+
+  &.white {
+    background-color: #fff;
+    color: #1f0045;
+  }
+
+  &.purple {
+    background-color: #420099;
+    color: #fff;
+  }
 }

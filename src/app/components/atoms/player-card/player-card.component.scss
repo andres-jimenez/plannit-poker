@@ -11,6 +11,18 @@
     border: 2px solid #9b4fff;
     box-shadow: 0px 0px 16px 0px rgba(196, 87, 255, 0.5);
     border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+
+    &--voted {
+      background-color: #9b4fff;
+    }
+
+    &--revealed {
+      color: #fff;
+    }
   }
 
   &--spectator {

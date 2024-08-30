@@ -1,6 +1,19 @@
 <div class="container">
-  <div [class]="playerType === 'player' ? 'card--player' : 'card--spectator'">
-    {{ playerType === "spectator" ? (playerName | shortenName) : "" }}
+  <div
+    [ngClass]="{
+    'card--player': player.type === 'player',
+    'card--spectator': player.type === 'spectator',
+    'card--player--voted': player.hasVoted,
+    'card--player--revealed': showScore,
+    }"
+  >
+    {{
+      player.type === "spectator"
+        ? (player.name | shortenName)
+        : showScore
+        ? player.vote
+        : ""
+    }}
   </div>
-  <span class="name">{{ playerName }}</span>
+  <span class="name">{{ player.name }}</span>
 </div>
