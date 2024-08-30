@@ -1,5 +1,11 @@
 <div class="container">
   <label [for]="name">{{ label }}</label>
-  <input [value]="value" (input)="onInput($event)" [id]="name" type="text" />
+  <input
+    [value]="value"
+    (input)="onInput($event)"
+    [id]="name"
+    type="text"
+    [disabled]="disabled"
+  />
   <span *ngIf="isInvalid">{{ errorMessage }}</span>
 </div>

@@ -1,21 +1,48 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 
 import { TableComponent } from './table.component';
 import { playersPositionsInTable } from '../../../constants/ui';
-import { of } from 'rxjs';
 import { PokerService } from '../../../services/poker/poker.service';
 import { By } from '@angular/platform-browser';
+import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
+import { voteDetail } from '../../../types/player-types.types';
 
 describe('TableComponent', () => {
   let component: TableComponent;
   let fixture: ComponentFixture<TableComponent>;
+  let pokerServiceSpy: jasmine.SpyObj<PokerService>;
+  let localStorageServiceSpy: jasmine.SpyObj<LocalStorageService>;
 
   beforeEach(async () => {
-    const pokerServiceSpy = jasmine.createSpyObj('PokerService', ['getUsers']);
+    pokerServiceSpy = jasmine.createSpyObj('PokerService', [
+      'getUsers',
+      'getVotes',
+      'getDetailVotes',
+      'getAverageVote',
+      'addUser',
+      'resetPoker',
+    ]);
+
+    localStorageServiceSpy = jasmine.createSpyObj('LocalStorageService', [
+      'get',
+    ]);
+
+    localStorageServiceSpy.get.and.returnValue({
+      userName: 'TestUser',
+      userType: 'player',
+    });
 
     await TestBed.configureTestingModule({
       imports: [TableComponent],
-      providers: [{ provide: PokerService, useValue: pokerServiceSpy }],
+      providers: [
+        { provide: PokerService, useValue: pokerServiceSpy },
+        { provide: LocalStorageService, useValue: localStorageServiceSpy },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TableComponent);
@@ -100,5 +127,80 @@ describe('TableComponent', () => {
     );
 
     expect(cardDetailsElement).toBeTruthy();
+  });
+
+  it('should initialize localPlayer from localStorage on ngOnInit', () => {
+    expect(component.localPlayer).toEqual({
+      name: 'TestUser',
+      type: 'player',
+      hasVoted: false,
+      vote: null,
+    });
+  });
+
+  it('should register local player vote and update state', (done) => {
+    component.registerLocalPlayerVote('5');
+
+    pokerServiceSpy.getVotes.and.returnValue(undefined);
+    pokerServiceSpy.getUsers.and.returnValue([]);
+
+    setTimeout(() => {
+      expect(component.localPlayer).toEqual({
+        name: 'TestUser',
+        type: 'player',
+        hasVoted: true,
+        vote: '5',
+      });
+      expect(pokerServiceSpy.getVotes).toHaveBeenCalled();
+      expect(component.allPlayersVoted).toBeTrue();
+      done();
+    }, 2000);
+  });
+
+  it('should get detail votes and average votes correctly', () => {
+    const mockDetailVotes: voteDetail[] = [{ vote: '5', count: 3 }];
+    const mockAverageVote = '4.5';
+
+    pokerServiceSpy.getDetailVotes.and.returnValue(mockDetailVotes);
+    pokerServiceSpy.getAverageVote.and.returnValue(mockAverageVote);
+
+    component.getDetailVotes();
+    component.getAverageVotes();
+
+    expect(component.detailVotes).toEqual(mockDetailVotes);
+    expect(component.votesAverage).toBe(mockAverageVote);
+  });
+
+  it('should reveal all cards and update state', () => {
+    pokerServiceSpy.addUser.and.returnValue(undefined);
+    pokerServiceSpy.getDetailVotes.and.returnValue([]);
+    pokerServiceSpy.getAverageVote.and.returnValue('4.5');
+
+    component.revealAllCards();
+
+    expect(pokerServiceSpy.addUser).toHaveBeenCalledWith(component.localPlayer);
+    expect(component.showAllPlayerVotes).toBeTrue();
+    expect(component.pokerFinished).toBeTrue();
+  });
+
+  it('should reset poker and update state', () => {
+    pokerServiceSpy.resetPoker.and.returnValue(undefined);
+    pokerServiceSpy.getUsers.and.returnValue([]);
+
+    component.onResetPoker();
+
+    expect(pokerServiceSpy.resetPoker).toHaveBeenCalled();
+    expect(component.showAllPlayerVotes).toBeFalse();
+    expect(component.detailVotes).toEqual([]);
+    expect(component.votesAverage).toBeNull();
+    expect(component.pokerFinished).toBeFalse();
+    expect(component.allPlayersVoted).toBeFalse();
+    expect(component.players).toEqual([]);
+    expect(component.localPlayer).toEqual({
+      name: 'TestUser',
+      type: 'player',
+      hasVoted: false,
+      vote: null,
+    });
   });
 });

@@ -17,6 +17,7 @@ export class InputComponent {
   @Input() isInvalid: boolean = false;
   @Input() errorMessage: string | null = null;
   @Input() onChange: (value: string) => void = () => {};
+  @Input() disabled: boolean = false;
 
   onInput(event: Event): void {
     const input = event.target as HTMLInputElement;

@@ -1,5 +1,9 @@
 <button
-  [ngClass]="{ white: variant === 'white', purple: variant === 'purple' }"
+  [ngClass]="{
+    white: variant === 'white',
+    purple: variant === 'purple',
+    transparent: variant === 'transparent'
+  }"
   (click)="handleClick()"
   [disabled]="disabled"
 >

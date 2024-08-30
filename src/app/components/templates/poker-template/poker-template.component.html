@@ -1,4 +1,4 @@
-<div>
+<div class="container">
   <header>
     <div class="wrapper">
       <img
@@ -8,10 +8,16 @@
         height="60px"
       />
       <h1 class="title">{{ title }}</h1>
-      <div>
+      <div class="actions">
         <app-user-profile />
+        <app-button
+          variant="transparent"
+          text="Invitar jugadores"
+          (onClick)="onShowInviteModal(true)"
+        />
       </div>
     </div>
   </header>
   <ng-content />
+  <ng-container *ngIf="showInviteModal"><app-invite-modal /></ng-container>
 </div>

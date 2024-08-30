@@ -1,19 +1,26 @@
-header {
-  width: 100%;
-  position: fixed;
-  z-index: 99;
+.container {
+  position: relative;
 
-  .wrapper {
-    padding-top: 40px;
-    width: 90%;
-    margin: auto;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    justify-content: space-between;
-  }
+  header {
+    width: 100%;
 
-  .title {
-    color: #fff;
+    .wrapper {
+      padding-top: 40px;
+      width: 90%;
+      margin: auto;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .title {
+      color: #fff;
+    }
+
+    .actions {
+      display: flex;
+      gap: 16px;
+    }
   }
 }
