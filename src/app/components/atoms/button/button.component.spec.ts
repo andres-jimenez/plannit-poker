@@ -30,4 +30,15 @@ describe('ButtonComponent', () => {
 
     expect(buttonElement.textContent.trim()).toBe('Continuar');
   });
+
+  it('should render the passed variant', () => {
+    component.variant = 'purple';
+
+    fixture.detectChanges();
+
+    const buttonElement =
+      fixture.debugElement.nativeElement.querySelector('button');
+
+    expect(buttonElement).toHaveClass('purple');
+  });
 });

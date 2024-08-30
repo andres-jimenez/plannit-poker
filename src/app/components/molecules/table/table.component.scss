@@ -34,9 +34,9 @@
 }
 
 .table {
-  width: 960px;
+  width: 725px;
   position: absolute;
-  transform: translate(14%, 50%);
+  transform: translate(24%, 50%);
   grid-row: 2;
   grid-column: 3;
 
@@ -55,6 +55,10 @@
     align-items: center;
     justify-content: center;
     box-shadow: 0px 0px 16px 0px rgba(196, 87, 255, 0.5);
+
+    @include fromMobile {
+      height: 400px;
+    }
   }
 
   &__middle {
@@ -73,5 +77,45 @@
     border: 2px solid #6e00ff;
     background-color: #250057;
     border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.gameInfo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .details {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding: 16px;
+    box-sizing: border-box;
+
+    &__cardContainter {
+      display: inline-block;
+    }
+
+    .average {
+      display: inline-block;
+      color: white;
+      text-align: center;
+      padding-left: 80px;
+
+      &__title {
+        display: block;
+        font-weight: 200;
+        font-size: 20px;
+      }
+
+      &__value {
+        display: block;
+        font-weight: 700;
+        font-size: 28px;
+      }
+    }
   }
 }

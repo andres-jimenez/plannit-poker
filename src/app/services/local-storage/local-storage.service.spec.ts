@@ -31,4 +31,14 @@ describe('LocalStorageService', () => {
     const retrievedData = service.get(testKey);
     expect(retrievedData).toEqual(testData);
   });
+
+  it('should delete data', () => {
+    localStorage.setItem(testKey, JSON.stringify(testData));
+
+    service.delete(testKey);
+
+    const deletedData = localStorage.getItem(testKey);
+
+    expect(deletedData).toBeNull();
+  });
 });

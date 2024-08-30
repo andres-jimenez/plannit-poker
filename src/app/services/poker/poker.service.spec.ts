@@ -1,10 +1,4 @@
-import {
-  discardPeriodicTasks,
-  fakeAsync,
-  flush,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { PokerService } from './poker.service';
 
@@ -20,21 +14,35 @@ describe('PokerService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should emit users in sequence', fakeAsync(() => {
-    let emittedValues: any[] = [];
+  it('should return all 7 users', () => {
+    const users = service.getUsers();
 
-    service.getUsers().subscribe((value) => {
-      emittedValues.push(value);
+    expect(users.length).toBe(7);
+  });
+
+  it('should add user', () => {
+    service.addUser({
+      name: 'Test',
+      type: 'spectator',
+      hasVoted: false,
+      vote: null,
     });
 
-    tick(6000);
+    const users = service.getUsers();
 
-    expect(emittedValues.length).toBe(4);
+    const createdUser = users.find((user) => user.name === 'Test');
 
-    expect(emittedValues[0]).toEqual({ name: 'Pedro', type: 'player' });
-    expect(emittedValues[1]).toEqual({ name: 'Juan', type: 'player' });
-    expect(emittedValues[2]).toEqual({ name: 'Ana', type: 'spectator' });
+    expect(createdUser).toBeTruthy();
+  });
 
-    discardPeriodicTasks();
-  }));
+  it('should get votes', () => {
+    service.getVotes();
+    const users = service.getUsers();
+
+    const usersVoted = users.filter(
+      (user) => user.type === 'player' && user.hasVoted
+    );
+
+    expect(usersVoted.length).toBe(5);
+  });
 });

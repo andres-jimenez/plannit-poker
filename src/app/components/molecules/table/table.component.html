@@ -1,19 +1,63 @@
 <div class="playersGrid">
   <div class="playersGrid__item playersGrid__item--localUser">
-    <app-player-card [playerName]="userName" [playerType]="userType" />
+    <app-player-card [player]="localPlayer" [showScore]="showAllPlayerVotes" />
   </div>
   <div
     *ngFor="let player of players; let i = index"
     class="playersGrid__item"
     [style]="getPlayerPositionInTable(i)"
   >
-    <app-player-card [playerName]="player.name" [playerType]="player.type" />
+    <app-player-card [player]="player" [showScore]="showAllPlayerVotes" />
   </div>
   <div class="table">
     <div class="table__outside">
       <div class="table__middle">
-        <div class="table__inside"></div>
+        <div class="table__inside">
+          <div class="buttonContainer">
+            <ng-container
+              *ngIf="
+                allPlayersVoted &&
+                !pokerFinished &&
+                localPlayer.type !== 'spectator'
+              "
+            >
+              <app-button
+                variant="purple"
+                text="Revelar cartas"
+                (onClick)="revealAllCards()"
+              />
+            </ng-container>
+            <ng-container
+              *ngIf="pokerFinished && localPlayer.type !== 'spectator'"
+            >
+              <app-button
+                variant="purple"
+                text="Nueva votación"
+                (onClick)="onResetPoker()"
+              />
+            </ng-container>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+</div>
+<ng-container *ngIf="localPlayer.type === 'player' && !showAllPlayerVotes">
+  <app-cards
+    (registerLocalPlayerVote)="registerLocalPlayerVote($event)"
+    [selectedScore]="localPlayer.vote"
+  />
+</ng-container>
+<div class="gameInfo">
+  <ng-container *ngIf="showAllPlayerVotes">
+    <div class="details">
+      <div class="details__cardContainer" *ngFor="let vote of detailVotes">
+        <app-card [score]="vote.vote" [infoText]="vote.count.toString()" />
+      </div>
+      <div class="average">
+        <span class="average__title">Promedio:</span>
+        <span class="average__value">{{ votesAverage }}</span>
+      </div>
+    </div>
+  </ng-container>
 </div>

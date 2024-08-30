@@ -1,3 +1,6 @@
-<button>
-  {{ score }}
-</button>
+<div class="container">
+  <button [ngClass]="{ selected: isSelected }" (click)="onCardSelect(score)">
+    {{ score }}
+  </button>
+  <span>{{ infoText }}</span>
+</div>

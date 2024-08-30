@@ -59,6 +59,8 @@ export class CreateUserFormComponent {
   }
 
   onSubmit(): void {
+    if (this.userNameHasErrors(this.userName)) return;
+
     const { userName, token } = this.authenticationService.login(this.userName);
     this.localStorageService.save(LOCAL_STORAGE.userLoginData, {
       userName,
