@@ -15,11 +15,7 @@
         <div class="table__inside">
           <div class="buttonContainer">
             <ng-container
-              *ngIf="
-                allPlayersVoted &&
-                !pokerFinished &&
-                localPlayer.type !== 'spectator'
-              "
+              *ngIf="allPlayersVoted && !pokerFinished && localPlayer.isAdmin"
             >
               <app-button
                 variant="purple"
@@ -27,9 +23,7 @@
                 (onClick)="revealAllCards()"
               />
             </ng-container>
-            <ng-container
-              *ngIf="pokerFinished && localPlayer.type !== 'spectator'"
-            >
+            <ng-container *ngIf="pokerFinished && localPlayer.isAdmin">
               <app-button
                 variant="purple"
                 text="Nueva votación"

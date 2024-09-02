@@ -109,6 +109,7 @@ describe('CreateUserFormComponent', () => {
         userName: 'TestUser',
         token: 'fakeToken',
         userType: 'player',
+        isAdmin: true,
       }
     );
     expect(routerSpy.navigate).toHaveBeenCalledWith([APP_ROUTES.poker]);

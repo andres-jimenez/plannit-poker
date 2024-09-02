@@ -33,6 +33,7 @@ export class TableComponent implements OnInit {
     type: 'player',
     hasVoted: false,
     vote: null,
+    isAdmin: false,
   };
 
   players: Player[] = [];
@@ -42,6 +43,7 @@ export class TableComponent implements OnInit {
   votesAverage: string | null = null;
   pokerFinished: boolean = false;
   playersPositionInTable: string[] = [];
+  simulationInterval: any;
 
   constructor(
     private pokerService: PokerService,
@@ -51,7 +53,7 @@ export class TableComponent implements OnInit {
   ngOnInit(): void {
     const userLoginData = this.localStorageService.get(
       LOCAL_STORAGE.userLoginData
-    ) as { userName: string; userType: playerTypes };
+    ) as { userName: string; userType: playerTypes; isAdmin: boolean };
 
     if (!userLoginData) return;
 
@@ -59,6 +61,7 @@ export class TableComponent implements OnInit {
       ...this.localPlayer,
       name: userLoginData.userName,
       type: userLoginData.userType,
+      isAdmin: userLoginData.isAdmin,
     };
 
     this.players = this.pokerService.getUsers();
@@ -90,6 +93,10 @@ export class TableComponent implements OnInit {
       this.pokerService.getVotes();
       this.players = this.pokerService.getUsers();
       this.allPlayersVoted = true;
+
+      if (!this.localPlayer.isAdmin) {
+        this.simulateGame();
+      }
     }, 2000);
   }
 
@@ -121,20 +128,28 @@ export class TableComponent implements OnInit {
   }
 
   simulateGame() {
-    setInterval(() => {
+    this.simulationInterval = setInterval(() => {
       setTimeout(() => {
         this.pokerService.getVotes();
         this.players = this.pokerService.getUsers();
         this.allPlayersVoted = true;
       }, 500);
 
-      setTimeout(() => {
-        this.revealAllCards();
-      }, 2000);
+      if (!this.localPlayer.isAdmin) {
+        setTimeout(() => {
+          this.revealAllCards();
+        }, 2000);
+
+        setTimeout(() => {
+          this.onResetPoker();
+        }, 7000);
+      }
 
       setTimeout(() => {
-        this.onResetPoker();
-      }, 7000);
+        if (!(this.localPlayer.type === 'spectator')) {
+          clearInterval(this.simulationInterval);
+        }
+      }, 9000);
     }, 10000);
   }
 }

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InputComponent } from './input.component';
+import { By } from '@angular/platform-browser';
 
 describe('InputComponent', () => {
   let component: InputComponent;
@@ -55,5 +56,17 @@ describe('InputComponent', () => {
       fixture.debugElement.nativeElement.querySelector('span');
 
     expect(errorMessageElement.textContent.trim()).toBe('Error');
+  });
+
+  it('should call onChange when input value changes', () => {
+    spyOn(component, 'onChange').and.callThrough();
+    const inputElement = fixture.debugElement.query(
+      By.css('input')
+    ).nativeElement;
+
+    inputElement.value = 'new value';
+    inputElement.dispatchEvent(new Event('input'));
+
+    expect(component.onChange).toHaveBeenCalledWith('new value');
   });
 });

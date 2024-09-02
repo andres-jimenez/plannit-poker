@@ -8,9 +8,8 @@ describe('InviteModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [InviteModalComponent]
-    })
-    .compileComponents();
+      imports: [InviteModalComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(InviteModalComponent);
     component = fixture.componentInstance;
@@ -19,5 +18,13 @@ describe('InviteModalComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should emit close event when onCloseModal is called', () => {
+    spyOn(component.close, 'emit');
+
+    component.onCloseModal();
+
+    expect(component.close.emit).toHaveBeenCalled();
   });
 });

@@ -3,13 +3,43 @@ import { Player, voteDetail } from '../../types/player-types.types';
 import { cardScores } from '../../constants/poker';
 
 export const usersInitialState: Player[] = [
-  { name: 'Pedro', type: 'player', hasVoted: false, vote: null },
-  { name: 'Juan', type: 'player', hasVoted: false, vote: null },
-  { name: 'Ana', type: 'spectator', hasVoted: false, vote: null },
-  { name: 'Laura', type: 'player', hasVoted: false, vote: null },
-  { name: 'Carlos', type: 'player', hasVoted: false, vote: null },
-  { name: 'Maria', type: 'spectator', hasVoted: false, vote: null },
-  { name: 'Luis', type: 'player', hasVoted: false, vote: null },
+  {
+    name: 'Pedro',
+    type: 'player',
+    hasVoted: false,
+    vote: null,
+    isAdmin: true,
+  },
+  { name: 'Juan', type: 'player', hasVoted: false, vote: null, isAdmin: false },
+  {
+    name: 'Ana',
+    type: 'spectator',
+    hasVoted: false,
+    vote: null,
+    isAdmin: false,
+  },
+  {
+    name: 'Laura',
+    type: 'player',
+    hasVoted: false,
+    vote: null,
+    isAdmin: false,
+  },
+  {
+    name: 'Carlos',
+    type: 'player',
+    hasVoted: false,
+    vote: null,
+    isAdmin: false,
+  },
+  {
+    name: 'Maria',
+    type: 'spectator',
+    hasVoted: false,
+    vote: null,
+    isAdmin: false,
+  },
+  { name: 'Luis', type: 'player', hasVoted: false, vote: null, isAdmin: false },
 ];
 
 @Injectable({

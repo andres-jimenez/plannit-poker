@@ -12,4 +12,8 @@ describe('notOnlyNumbers', () => {
     expect(notOnlyNumbers('000')).toBeTrue();
     expect(notOnlyNumbers('456789')).toBeTrue();
   });
+
+  it('should accept empty strings', () => {
+    expect(notOnlyNumbers('')).toBeFalse();
+  });
 });

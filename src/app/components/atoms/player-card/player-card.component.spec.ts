@@ -26,6 +26,7 @@ describe('PlayerCardComponent', () => {
       type: 'player',
       hasVoted: false,
       vote: null,
+      isAdmin: false,
     };
 
     fixture.detectChanges();
@@ -45,6 +46,7 @@ describe('PlayerCardComponent', () => {
       type: 'spectator',
       hasVoted: false,
       vote: null,
+      isAdmin: false,
     };
 
     fixture.detectChanges();
@@ -61,6 +63,7 @@ describe('PlayerCardComponent', () => {
       type: 'player',
       hasVoted: true,
       vote: '5',
+      isAdmin: false,
     };
 
     fixture.detectChanges();
@@ -78,6 +81,7 @@ describe('PlayerCardComponent', () => {
       type: 'player',
       hasVoted: true,
       vote: '5',
+      isAdmin: false,
     };
     component.showScore = true;
 
