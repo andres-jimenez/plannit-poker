@@ -25,6 +25,15 @@
       justify-content: space-between;
       color: white;
       font-weight: 700;
+
+      button {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        color: #fff;
+        font-weight: 800;
+        font-size: 20px;
+      }
     }
 
     .content {

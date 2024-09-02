@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Player, playerTypes } from '../../../types/player-types.types';
+import { Player } from '../../../types/player-types.types';
 import { ShortenNamePipe } from '../../../pipes/shorten-name.pipe';
 import { CommonModule } from '@angular/common';
 
@@ -16,6 +16,7 @@ export class PlayerCardComponent {
     type: 'player',
     hasVoted: false,
     vote: null,
+    isAdmin: false,
   };
   @Input() showScore: boolean = false;
 }

@@ -21,4 +21,14 @@ describe('AuthenticationService', () => {
     expect(service.validateToken(validToken)).toBeTrue();
     expect(service.validateToken(invalidToken)).toBeFalse();
   });
+
+  it('should return userName and token on login', () => {
+    const userName = 'testUser';
+    const result = service.login(userName);
+
+    expect(result).toEqual({
+      userName,
+      token: '980c5c9f-bbf7-444a-8ec7-7e7b09845670',
+    });
+  });
 });

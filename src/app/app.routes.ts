@@ -5,6 +5,7 @@ import { CreatePokerPageComponent } from './components/pages/create-poker-page/c
 import { PokerPageComponent } from './components/pages/poker-page/poker-page.component';
 import { JoinPokerPageComponent } from './components/pages/join-poker-page/join-poker-page.component';
 import { PokerGuard } from './guards/poker.guard';
+import { InvitePageComponent } from './components/pages/invite-page/invite-page.component';
 
 export const routes: Routes = [
   {
@@ -21,6 +22,10 @@ export const routes: Routes = [
     path: 'poker',
     component: PokerPageComponent,
     canMatch: [PokerGuard],
+  },
+  {
+    path: 'invite',
+    component: InvitePageComponent,
   },
   {
     path: '**',

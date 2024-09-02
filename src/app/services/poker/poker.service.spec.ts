@@ -27,6 +27,7 @@ describe('PokerService', () => {
       type: 'spectator',
       hasVoted: false,
       vote: null,
+      isAdmin: false,
     });
 
     const users = service.getUsers();

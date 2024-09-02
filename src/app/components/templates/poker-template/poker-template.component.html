@@ -19,5 +19,7 @@
     </div>
   </header>
   <ng-content />
-  <ng-container *ngIf="showInviteModal"><app-invite-modal /></ng-container>
+  <ng-container *ngIf="showInviteModal"
+    ><app-invite-modal (close)="onShowInviteModal(false)"
+  /></ng-container>
 </div>

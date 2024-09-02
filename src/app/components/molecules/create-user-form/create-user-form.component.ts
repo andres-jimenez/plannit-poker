@@ -25,7 +25,7 @@ import { AuthenticationService } from '../../../services/authentication/authenti
   styleUrl: './create-user-form.component.scss',
 })
 export class CreateUserFormComponent {
-  @Input() gameName: string = '';
+  @Input() isInvitation: boolean = false;
 
   userName: string = '';
   userType: string = '';
@@ -66,6 +66,7 @@ export class CreateUserFormComponent {
       userName,
       token,
       userType: this.userType,
+      isAdmin: !this.isInvitation,
     });
 
     this.router.navigate([APP_ROUTES.poker]);

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { InviteUserComponent } from '../../molecules/invite-user/invite-user.component';
 
 @Component({
@@ -8,4 +8,10 @@ import { InviteUserComponent } from '../../molecules/invite-user/invite-user.com
   templateUrl: './invite-modal.component.html',
   styleUrl: './invite-modal.component.scss',
 })
-export class InviteModalComponent {}
+export class InviteModalComponent {
+  @Output() close: EventEmitter<void> = new EventEmitter();
+
+  onCloseModal() {
+    this.close.emit();
+  }
+}

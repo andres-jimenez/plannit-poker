@@ -35,6 +35,7 @@ describe('TableComponent', () => {
     localStorageServiceSpy.get.and.returnValue({
       userName: 'TestUser',
       userType: 'player',
+      isAdmin: false,
     });
 
     await TestBed.configureTestingModule({
@@ -56,8 +57,20 @@ describe('TableComponent', () => {
 
   it('should render all players included the local player', () => {
     component.players = [
-      { name: 'Jhon', type: 'player', hasVoted: false, vote: null },
-      { name: 'Sara', type: 'spectator', hasVoted: false, vote: null },
+      {
+        name: 'Jhon',
+        type: 'player',
+        hasVoted: false,
+        vote: null,
+        isAdmin: false,
+      },
+      {
+        name: 'Sara',
+        type: 'spectator',
+        hasVoted: false,
+        vote: null,
+        isAdmin: true,
+      },
     ];
 
     fixture.detectChanges();
@@ -86,6 +99,14 @@ describe('TableComponent', () => {
   });
 
   it('should render reveal card button if all players voted and reset game button if poker finished', () => {
+    component.localPlayer = {
+      name: 'Test',
+      type: 'player',
+      isAdmin: true,
+      hasVoted: true,
+      vote: '5',
+    };
+
     component.allPlayersVoted = true;
 
     fixture.detectChanges();
@@ -135,6 +156,7 @@ describe('TableComponent', () => {
       type: 'player',
       hasVoted: false,
       vote: null,
+      isAdmin: false,
     });
   });
 
@@ -150,6 +172,7 @@ describe('TableComponent', () => {
         type: 'player',
         hasVoted: true,
         vote: '5',
+        isAdmin: false,
       });
       expect(pokerServiceSpy.getVotes).toHaveBeenCalled();
       expect(component.allPlayersVoted).toBeTrue();
@@ -201,6 +224,22 @@ describe('TableComponent', () => {
       type: 'player',
       hasVoted: false,
       vote: null,
+      isAdmin: false,
     });
+  });
+
+  it('should call simulateGame if player is spectator', () => {
+    spyOn(component, 'simulateGame').and.callThrough();
+
+    localStorageServiceSpy.get.and.returnValue({
+      userName: 'TestUser',
+      userType: 'spectator',
+      isAdmin: false,
+    });
+
+    fixture.detectChanges();
+    component.ngOnInit();
+
+    expect(component.simulateGame).toHaveBeenCalled();
   });
 });

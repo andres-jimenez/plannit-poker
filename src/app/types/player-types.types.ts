@@ -3,6 +3,7 @@ export interface Player {
   type: playerTypes;
   hasVoted: boolean;
   vote: string | null;
+  isAdmin: boolean;
 }
 
 export type playerTypes = 'player' | 'spectator';
